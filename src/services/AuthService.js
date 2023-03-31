@@ -2,6 +2,7 @@ import userRepository from "../repositories/UsersRepository.js";
 import doctorRepository from "../repositories/DoctorRepository.js";
 import patientRepository from "../repositories/PatientRepository.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 async function createUser(name, email, password, type, speciality){
     try {
@@ -34,4 +35,27 @@ async function createPatient(user_id){
     }
 }
 
-export default { createUser }
+async function generateToken(email, password){
+    try {
+        const { rows: [user] } = await userRepository.findByEmail(email)
+        const validPassword = bcrypt.compareSync(password, user.password)
+        if (!validPassword){
+            throw new Error("Email or password are incorrect")
+        }
+        const secretKey = await findSecretKey()
+        const token = jwt.sign({userId: user.id, email}, secretKey, { expiresIn: '3h' })
+        return token
+    } catch (error) {
+        throw new Error("Internal Server Error")
+    }
+}
+
+async function findSecretKey(){
+    const secretKey = process.env.SECRET_KEY
+    if (!secretKey){
+        throw new Error("Secret Key not found")
+    }
+    return secretKey
+}
+
+export default { createUser, generateToken }
