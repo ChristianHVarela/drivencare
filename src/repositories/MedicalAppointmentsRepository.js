@@ -6,5 +6,11 @@ async function verifyDateTime(searchQuery){
     `, searchQuery);
 }
 
+async function insertMedicalAppointment(insertSearch){
+    await db.query(`
+        INSERT INTO medical_appointments(doctor_id, patient_id, date, start_time, end_time) VALUES ($1, $2, $3, $4, $5)
+    `, insertSearch)
+}
 
-export default { verifyDateTime }
+
+export default { verifyDateTime, insertMedicalAppointment }
