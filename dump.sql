@@ -54,7 +54,8 @@ CREATE TABLE public.doctors (
     id integer NOT NULL,
     user_id integer NOT NULL,
     specialily public.medical_speciality NOT NULL,
-    created_at timestamp with time zone DEFAULT now() NOT NULL
+    created_at timestamp with time zone DEFAULT now() NOT NULL,
+    localization character varying(100) NOT NULL
 );
 
 
@@ -234,7 +235,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Name: doctors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.doctors_id_seq', 1, false);
+SELECT pg_catalog.setval('public.doctors_id_seq', 3, true);
 
 
 --
@@ -255,7 +256,7 @@ SELECT pg_catalog.setval('public.patients_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_id_seq', 4, true);
 
 
 --
