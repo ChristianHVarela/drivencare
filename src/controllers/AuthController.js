@@ -2,11 +2,12 @@ import httpStatus from "http-status"
 import authService from "../services/AuthService.js"
 
 async function createUser(req, res, next){
-    const { name, email, password, type, speciality } = req.body
+    const { name, email, password, type, speciality, localization } = req.body
     try {
-        await authService.createUser(name, email, password, type, speciality)
+        await authService.createUser(name, email, password, type, speciality, localization)
         return res.status(httpStatus.CREATED).send()
     } catch (error) {
+        console.log(error);
         next(error)
     }
 }

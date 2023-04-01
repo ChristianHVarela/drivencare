@@ -5,19 +5,19 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import errors from '../errors/index.js'
 
-async function createUser(name, email, password, type, speciality){
+async function createUser(name, email, password, type, speciality, localization){
     const passwordEncrypted = await bcrypt.hash(password, 10)
     await userRepository.createUser([name, email, passwordEncrypted])
     const { rows: [user] } = await userRepository.findByEmail(email)
     if (type === 'DOCTOR'){
-        await createDoctor(user.id, speciality)
+        await createDoctor(user.id, speciality, localization)
     } else {
         await createPatient(user.id)
     }
 }
 
-async function createDoctor(user_id, speciality){
-    await doctorRepository.createDoctor([user_id, speciality])
+async function createDoctor(user_id, speciality, localization){
+    await doctorRepository.createDoctor([user_id, speciality, localization])
 }
 
 async function createPatient(user_id){

@@ -12,6 +12,7 @@ async function signupValidator(req, res, next){
         }
         next();
     } catch (error) {
+        console.log(error);
         next(error)
     }
 }
@@ -27,6 +28,7 @@ async function validateToken(req, res, next){
         const secretKey = await authService.findSecretKey();
         const { userId, email } = jwt.verify(token, secretKey);
         res.locals.user = { user_id: userId, email }
+        next()
     } catch (error) {
         throw errors.unauthorizedError();
     }
