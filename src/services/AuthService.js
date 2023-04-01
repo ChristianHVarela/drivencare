@@ -37,9 +37,9 @@ async function generateToken(email, password){
 async function findSecretKey(){
     const secretKey = process.env.SECRET_KEY
     if (!secretKey){
-        throw new Error("Secret Key not found")
+        throw errors.notFoundError();
     }
     return secretKey
 }
 
-export default { createUser, generateToken }
+export default { createUser, generateToken, findSecretKey }
