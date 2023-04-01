@@ -6,4 +6,10 @@ async function createPatient(insertQuery){
     `, insertQuery)
 }
 
-export default { createPatient }
+async function findById(searchQuery){
+    return await db.query(`
+        SELECT * FROM patients WHERE id = $1
+    `, searchQuery)
+}
+
+export default { createPatient, findById }

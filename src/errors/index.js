@@ -33,6 +33,13 @@ function conflictError(message) {
       message: "Email or password are incorrect",
     };
   }
+
+  function medicalAppointmentsError(message){
+    return {
+      name: "MedicalAppointmentsError",
+      message
+    }
+  }
   
   export default {
     conflictError,
@@ -40,4 +47,5 @@ function conflictError(message) {
     unauthorizedError,
     notFoundError,
     invalidCredentialsError,
+    medicalAppointmentsError
   };

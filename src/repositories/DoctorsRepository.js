@@ -16,7 +16,13 @@ async function findAll(searchQuery){
     `, searchQuery);
 }
 
-export default { createDoctor, findAll }
+async function findById(searchQuery){
+    return await db.query(`
+        SELECT * FROM doctors WHERE id = $1
+    `, searchQuery)
+}
+
+export default { createDoctor, findAll, findById }
 
 
         
