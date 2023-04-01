@@ -38,7 +38,8 @@ CREATE TYPE public.medical_speciality AS ENUM (
 CREATE TYPE public.status_appointments AS ENUM (
     'MARKED',
     'STARTED',
-    'FINISHED'
+    'FINISHED',
+    'CONFIRMED'
 );
 
 
